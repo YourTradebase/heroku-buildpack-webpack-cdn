@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 build_dir=$1
 env_dir=$3
+buildpack_dir=$(cd "$(dirname "${0:-}")"; cd ..; pwd)
 
 echo "-----> Updating webpack manifest.json from S3"
 
@@ -12,6 +13,14 @@ get_env () {
   local name=$1
 
   cat "$env_dir/$name"
+}
+
+write_profile() {
+  local buildpack_dir="$1"
+  local build_dir="$2"
+  echo "-----> Writing profile.d scripts" | indent
+  mkdir -p "$build_dir/.profile.d"
+  cp "$buildpack_dir"/profile/* "$build_dir/.profile.d/"
 }
 
 require_env () {
@@ -47,6 +56,8 @@ download_file() {
 
   return $status
 }
+
+write_profile "$buildpack_dir" "$build_dir"
 
 require_env "WEBPACK_OUTPUT_PATH" "WEBPACK_PUBLIC_PATH" "WEBPACK_MANIFEST_HOST"
 
