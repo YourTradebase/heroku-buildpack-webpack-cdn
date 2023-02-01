@@ -20,6 +20,8 @@ write_profile() {
   local build_dir="$2"
   echo "Writing profile.d scripts" | indent
   mkdir -vp "$build_dir/.profile.d" | indent
+  ls "$buildpack_dir" | indent
+  ls "$buildpack_dir/profile" | indent
   cp -v "$buildpack_dir/profile/*" "$build_dir/.profile.d/" | indent
 }
 
