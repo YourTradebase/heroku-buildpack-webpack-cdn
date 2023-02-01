@@ -22,7 +22,7 @@ write_profile() {
   mkdir -vp "$build_dir/.profile.d" | indent
   ls "$buildpack_dir" | indent
   ls "$buildpack_dir/profile" | indent
-  cp -v "$buildpack_dir/profile/*" "$build_dir/.profile.d/" | indent
+  cp -vr "$buildpack_dir/profile/*" "$build_dir/.profile.d/" | indent
 }
 
 require_env () {
