@@ -17,5 +17,5 @@ add_cdn="s|/$WEBPACK_OUTPUT_PATH|$WEBPACK_CDN/$WEBPACK_OUTPUT_PATH|g"
 echo "Adding CDN using '$add_cdn' on $manifest_path"
 
 # -i '' is a mac os quirk
-sed -E "$remove_cdn" $manifest_path
-sed -E "$add_cdn" $manifest_path
+sed -i -E "$remove_cdn" $manifest_path
+sed -i -E "$add_cdn" $manifest_path
