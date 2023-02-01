@@ -18,9 +18,9 @@ get_env () {
 write_profile() {
   local buildpack_dir="$1"
   local build_dir="$2"
-  echo "-----> Writing profile.d scripts" | indent
-  mkdir -p "$build_dir/.profile.d"
-  cp "$buildpack_dir"/profile/* "$build_dir/.profile.d/"
+  echo "Writing profile.d scripts" | indent
+  mkdir -vp "$build_dir/.profile.d" | indent
+  cp -v "$buildpack_dir/profile/*" "$build_dir/.profile.d/" | indent
 }
 
 require_env () {
@@ -57,9 +57,9 @@ download_file() {
   return $status
 }
 
-write_profile "$buildpack_dir" "$build_dir"
-
 require_env "WEBPACK_OUTPUT_PATH" "WEBPACK_PUBLIC_PATH" "WEBPACK_MANIFEST_HOST"
+
+write_profile "$buildpack_dir" "$build_dir"
 
 webpack_output_path=$(get_env "WEBPACK_OUTPUT_PATH") # packs
 webpack_public_path=$(get_env "WEBPACK_PUBLIC_PATH") # public
