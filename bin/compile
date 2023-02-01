@@ -48,16 +48,16 @@ download_file() {
   return $status
 }
 
-require_env "WEBPACK_OUTPUT_PATH" "WEBPACK_PUBLIC_PATH" "WEBPACK_PUBLIC_HOST"
+require_env "WEBPACK_OUTPUT_PATH" "WEBPACK_PUBLIC_PATH" "WEBPACK_MANIFEST_HOST"
 
 webpack_output_path=$(get_env "WEBPACK_OUTPUT_PATH") # packs
 webpack_public_path=$(get_env "WEBPACK_PUBLIC_PATH") # public
-webpack_public_host=$(get_env "WEBPACK_PUBLIC_HOST") # A public endpoint (not the cdn host as we don't want to fetch a cached version of the manifest)
+webpack_manifest_host=$(get_env "WEBPACK_MANIFEST_HOST") # A public endpoint (not the cdn host as we don't want to fetch a cached version of the manifest)
 
 local_manifest_path=$build_dir/$webpack_public_path/$webpack_output_path
 
-remote_manifest_versioned_url=$webpack_public_host/$webpack_output_path/manifest-$SOURCE_VERSION.json
-remote_manifest_latest_url=$webpack_public_host/$webpack_output_path/manifest.json
+remote_manifest_versioned_url=$webpack_manifest_host/$webpack_output_path/manifest-$SOURCE_VERSION.json
+remote_manifest_latest_url=$webpack_manifest_host/$webpack_output_path/manifest.json
 
 if [[ ! -d "$local_manifest_path" ]]; then
   echo "Creating manifest directory.." | indent
