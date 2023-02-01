@@ -48,16 +48,16 @@ download_file() {
   return $status
 }
 
-require_env "WEBPACK_PUBLIC_OUTPUT_PATH" "WEBPACK_PUBLIC_ROOT_PATH" "WEBPACK_PUBLIC_S3_HOST"
+require_env "WEBPACK_OUTPUT_PATH" "WEBPACK_PUBLIC_PATH" "WEBPACK_PUBLIC_HOST"
 
-webpack_public_output_path=$(get_env "WEBPACK_PUBLIC_OUTPUT_PATH") # packs
-webpack_public_root_path=$(get_env "WEBPACK_PUBLIC_ROOT_PATH") # public
-webpack_public_s3_host=$(get_env "WEBPACK_PUBLIC_S3_HOST") # A public s3 endpoint (not the cloudfront host)
+webpack_output_path=$(get_env "WEBPACK_OUTPUT_PATH") # packs
+webpack_public_path=$(get_env "WEBPACK_PUBLIC_PATH") # public
+webpack_public_host=$(get_env "WEBPACK_PUBLIC_HOST") # A public endpoint (not the cdn host as we don't want to fetch a cached version of the manifest)
 
-local_manifest_path=$build_dir/$webpack_public_root_path/$webpack_public_output_path
+local_manifest_path=$build_dir/$webpack_public_path/$webpack_output_path
 
-remote_manifest_versioned_url=$webpack_public_s3_host/$webpack_public_output_path/manifest-$SOURCE_VERSION.json
-remote_manifest_latest_url=$webpack_public_s3_host/$webpack_public_output_path/manifest.json
+remote_manifest_versioned_url=$webpack_public_host/$webpack_output_path/manifest-$SOURCE_VERSION.json
+remote_manifest_latest_url=$webpack_public_host/$webpack_output_path/manifest.json
 
 if [[ ! -d "$local_manifest_path" ]]; then
   echo "Creating manifest directory.." | indent
