@@ -3,7 +3,7 @@
 # Add a prefix to all urls in the webpack manifest file,
 # this can be run against the same manifest if the WEBPACK_CDN changes.
 
-manifest_path="$BUILD_DIR/$WEBPACK_PUBLIC_PATH/$WEBPACK_OUTPUT_PATH/manifest.json"
+manifest_path="/app/$WEBPACK_PUBLIC_PATH/$WEBPACK_OUTPUT_PATH/manifest.json"
 
 if [ ! -f $manifest_path ]; then
   echo "Manifest not found: $manifest_path"
